@@ -1,0 +1,22 @@
+commitFormat: angular
+branch:
+  master: release
+release: 'gitlab'
+gitlab:
+  repo: "tools/server/autoscalewaybackup"
+  customUrl: https://lab.acidspike.fr
+assets:
+  - name: ./out/docker-machine-driver-scaleway_win64.exe
+    compress: false
+  - name: ./out/docker-machine-driver-scaleway_win32.exe
+    compress: false
+  - name: ./out/docker-machine-driver-scaleway_linux64
+    compress: false
+  - name: ./out/docker-machine-driver-scaleway_linux32
+    compress: false
+  - name: ./out/docker-machine-driver-scaleway_linuxarm64
+    compress: false
+  - name: ./out/docker-machine-driver-scaleway_linuxarm32
+    compress: false
+  - name: ./out/docker-machine-driver-scaleway_darwin64
+    compress: false

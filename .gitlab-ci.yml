@@ -1,0 +1,7 @@
+variables:
+  BIN_NAME: docker-machine-driver-scaleway
+
+include:
+  - project: 'tools/ci-yaml'
+    ref: master
+    file: 'go.yml'
