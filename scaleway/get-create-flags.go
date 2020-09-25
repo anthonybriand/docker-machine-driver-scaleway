@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	defaultImage = "ubuntu-bionic"
+	defaultImage = "docker"
 )
 
 // GetCreateFlags registers the flags
