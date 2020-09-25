@@ -3,7 +3,7 @@ branch:
   master: release
 release: 'gitlab'
 gitlab:
-  repo: "tools/server/autoscalewaybackup"
+  repo: "tools/server/docker-machine-driver-scaleway"
   customUrl: https://lab.acidspike.fr
 assets:
   - name: ./out/docker-machine-driver-scaleway_win64.exe
