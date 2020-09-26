@@ -4,7 +4,6 @@ import (
 	"github.com/docker/machine/libmachine/state"
 	"github.com/rancher/machine/libmachine/log"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 	"time"
 )
 
@@ -16,33 +15,36 @@ func (d *Driver) GetState() (st state.State, err error) {
 		return state.Error, err
 	}
 
-	log.Infof("Retrieving server state...")
-	server, err := client.GetServer(&instance.GetServerRequest{
-		Zone:     d.Zone,
-		ServerID: d.ServerID,
-	})
+	if d.ServerID != "" {
+		log.Infof("Retrieving server state...")
+		server, err := client.GetServer(&instance.GetServerRequest{
+			Zone:     d.Zone,
+			ServerID: d.ServerID,
+		})
 
-	if err != nil {
-		if err.(*scw.ResponseError).StatusCode == 404 {
+		if err != nil {
+			if IsScwError(err) && GetErrorStatus(err) == 404 {
+				return state.None, nil
+			}
+			log.Errorf("Failed to retrieve server %s state: %s, retrying in 10 seconds...", d.ServerID, err.Error())
+			time.Sleep(10 * time.Second)
+			return d.GetState()
+		}
+
+		switch server.Server.State {
+		case instance.ServerStateRunning:
+			return state.Running, nil
+		case instance.ServerStateStarting:
+			return state.Starting, nil
+		case instance.ServerStateStopped:
+			return state.Stopped, nil
+		case instance.ServerStateStoppedInPlace:
+			return state.Stopped, nil
+		case instance.ServerStateStopping:
+			return state.Stopping, nil
+		default:
 			return state.None, nil
 		}
-		log.Errorf("Failed to retrieve server %s state: %s, retrying in 10 seconds...", d.ServerID, err.Error())
-		time.Sleep(10 * time.Second)
-		return d.GetState()
-	}
-
-	switch server.Server.State {
-	case instance.ServerStateRunning:
-		return state.Running, nil
-	case instance.ServerStateStarting:
-		return state.Starting, nil
-	case instance.ServerStateStopped:
-	case instance.ServerStateStoppedInPlace:
-		return state.Stopped, nil
-	case instance.ServerStateStopping:
-		return state.Stopping, nil
-	default:
-		return state.None, nil
 	}
 
 	return state.None, nil
