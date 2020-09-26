@@ -4,7 +4,6 @@ import (
 	"github.com/docker/machine/libmachine/state"
 	"github.com/rancher/machine/libmachine/log"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 	"time"
 )
 
@@ -34,7 +33,7 @@ func (d *Driver) Start() error {
 		})
 
 		if err != nil {
-			if err.(*scw.ResponseError).StatusCode == 404 {
+			if IsScwError(err) && GetErrorStatus(err) == 404 {
 				return nil
 			} else {
 				log.Errorf("Server %s failed to start: %s, retrying in 10 seconds...", d.ServerID, err.Error())
@@ -50,7 +49,7 @@ func (d *Driver) Start() error {
 	})
 
 	if err != nil {
-		if err.(*scw.ResponseError).StatusCode != 404 {
+		if !IsScwError(err) || GetErrorStatus(err) != 404 {
 			return d.Start()
 		}
 		return nil
