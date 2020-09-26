@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"github.com/rancher/machine/libmachine/log"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 	"time"
 )
 
@@ -20,7 +19,7 @@ func (d *Driver) setCloudInit(client *instance.API, server *instance.CreateServe
 	})
 
 	if err != nil {
-		if err.(*scw.ResponseError).StatusCode != 404 {
+		if !IsScwError(err) || GetErrorStatus(err) != 404 {
 			log.Errorf("Set of cloud-init failed on server %s: %s, retrying in 10 seconds...", server.Server.ID, err.Error())
 			time.Sleep(10 * time.Second)
 			d.setCloudInit(client, server, cloudInitConfig)
