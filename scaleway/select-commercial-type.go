@@ -14,7 +14,7 @@ func (d *Driver) selectCommercialType() error {
 		return err
 	}
 
-	log.Infof("Removing server...")
+	log.Infof("Checking server availability...")
 	productServer := productServersAvailability.Servers[d.CommercialType]
 	commercialType := d.CommercialType
 	if productServer.Availability != instance.ServerTypesAvailabilityAvailable && productServer.Availability != instance.ServerTypesAvailabilityScarce {
