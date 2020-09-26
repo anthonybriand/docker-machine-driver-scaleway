@@ -4,7 +4,6 @@ import (
 	"github.com/docker/machine/libmachine/state"
 	"github.com/rancher/machine/libmachine/log"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 	"time"
 )
 
@@ -31,6 +30,7 @@ func (d *Driver) Restart() error {
 		return d.Restart()
 	}
 
+	log.Infof("Restarting server...")
 	retryInterval := 10 * time.Second
 	err = client.ServerActionAndWait(&instance.ServerActionAndWaitRequest{
 		ServerID:      d.ServerID,
@@ -40,7 +40,21 @@ func (d *Driver) Restart() error {
 	})
 
 	if err != nil {
-		if err.(*scw.ResponseError).StatusCode != 404 {
+		if !IsScwError(err) || GetErrorStatus(err) != 404 {
+			log.Errorf("Server %s reboot failed: %s, retrying in 10 seconds...", d.ServerID, err.Error())
+			time.Sleep(10 * time.Second)
+			return d.Restart()
+		}
+	}
+
+	_, err = client.WaitForServer(&instance.WaitForServerRequest{
+		ServerID:      d.ServerID,
+		Zone:          d.Zone,
+		RetryInterval: &retryInterval,
+	})
+
+	if err != nil {
+		if !IsScwError(err) || GetErrorStatus(err) != 404 {
 			log.Errorf("Server %s reboot failed: %s, retrying in 10 seconds...", d.ServerID, err.Error())
 			time.Sleep(10 * time.Second)
 			return d.Restart()
