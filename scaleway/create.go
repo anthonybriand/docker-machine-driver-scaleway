@@ -65,20 +65,34 @@ users:
 		}
 	}
 
-	server, err := client.CreateServer(&instance.CreateServerRequest{
+	createServerRequest := &instance.CreateServerRequest{
 		Zone:              d.Zone,
 		Name:              d.name,
 		DynamicIPRequired: scw.BoolPtr(!d.IPPersistant),
 		CommercialType:    d.RealCommercialType,
 		Image:             d.image,
-		Volumes:           volumesTemplate,
 		EnableIPv6:        d.ipv6,
-		PublicIP:          &d.IPID,
 		BootType:          &bootType,
-		Bootscript:        &d.bootscript,
 		Project:           &d.Organization,
 		Tags:              d.Tags,
-	})
+	}
+
+	if len(volumesTemplate) > 0 {
+		createServerRequest.Volumes = volumesTemplate
+	}
+
+	if d.IPID != "" {
+		createServerRequest.PublicIP = &d.IPID
+	}
+
+	if d.bootscript != "" {
+		createServerRequest.Bootscript = &d.bootscript
+	} else {
+		bootType = instance.BootTypeLocal
+		createServerRequest.BootType = &bootType
+	}
+
+	server, err := client.CreateServer(createServerRequest)
 
 	if err != nil {
 		_ = d.deleteIP()
