@@ -4,7 +4,6 @@ import (
 	"github.com/docker/machine/libmachine/state"
 	"github.com/rancher/machine/libmachine/log"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 	"time"
 )
 
@@ -42,7 +41,7 @@ func (d *Driver) Remove() error {
 		Zone:     d.Zone,
 	})
 
-	if err != nil && err.(*scw.ResponseError).StatusCode != 404 {
+	if err != nil && (!IsScwError(err) || GetErrorStatus(err) != 404) {
 		log.Errorf("Server %s remove failed: %s, retrying in 10 seconds...", d.ServerID, err.Error())
 		time.Sleep(10 * time.Second)
 		return d.Remove()
