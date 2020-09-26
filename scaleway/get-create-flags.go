@@ -3,7 +3,6 @@ package scaleway
 import (
 	"github.com/docker/machine/libmachine/mcnflag"
 	"github.com/rancher/machine/libmachine/drivers"
-	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -47,8 +46,8 @@ func (d *Driver) GetCreateFlags() []mcnflag.Flag {
 			Value:  []string{"DEV1-M", "DEV1-L", "DEV1-XL", "GP1-XS"},
 		},
 		mcnflag.StringFlag{
-			EnvVar: "SCALEWAY_REGION",
-			Name:   "scaleway-region",
+			EnvVar: "SCALEWAY_ZONE",
+			Name:   "scaleway-zone",
 			Usage:  "Specifies the location (" + scw.ZoneFrPar1.String() + "," + scw.ZoneFrPar2.String() + "," + scw.ZoneNlAms1.String() + "," + scw.ZonePlWaw1.String() + ")",
 			Value:  scw.ZoneFrPar1.String(),
 		},
@@ -61,8 +60,8 @@ func (d *Driver) GetCreateFlags() []mcnflag.Flag {
 		mcnflag.StringFlag{
 			EnvVar: "SCALEWAY_BOOTSCRIPT",
 			Name:   "scaleway-bootscript",
-			Usage:  "Specifies the bootscript (" + instance.BootTypeBootscript.String() + "," + instance.BootTypeLocal.String() + "," + instance.BootTypeRescue.String() + ")",
-			Value:  instance.BootTypeBootscript.String(),
+			Usage:  "Specifies the bootscript",
+			Value:  "",
 		},
 		mcnflag.StringSliceFlag{
 			EnvVar: "SCALEWAY_VOLUMES",
