@@ -5,7 +5,6 @@ import (
 	"github.com/docker/machine/libmachine/state"
 	"github.com/rancher/machine/libmachine/log"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 	"time"
 )
 
@@ -52,7 +51,7 @@ func (d *Driver) Kill() error {
 	})
 
 	if err != nil {
-		if err.(*scw.ResponseError).StatusCode == 404 {
+		if IsScwError(err) && GetErrorStatus(err) == 404 {
 			return nil
 		} else {
 			log.Errorf("Failed to kill server %s: %s, retrying in 10 seconds...", d.ServerID, err.Error())
