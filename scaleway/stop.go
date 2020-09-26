@@ -6,7 +6,6 @@ import (
 	"github.com/docker/machine/libmachine/log"
 	"github.com/docker/machine/libmachine/state"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 	"time"
 )
 
@@ -42,6 +41,7 @@ func (d *Driver) Stop() error {
 		}
 	}
 
+	log.Infof("Sending halt to server %s", d.ServerID)
 	sshClient, _ := drivers.GetSSHClientFromDriver(d)
 
 	_, _, _ = sshClient.Start("halt")
@@ -58,7 +58,7 @@ func (d *Driver) Stop() error {
 	})
 
 	if err != nil {
-		if err.(*scw.ResponseError).StatusCode == 404 {
+		if IsScwError(err) && GetErrorStatus(err) == 404 {
 			return nil
 		} else {
 			log.Errorf("Server %s failed to stop: %s, retrying in 10 seconds...", d.ServerID, err.Error())
