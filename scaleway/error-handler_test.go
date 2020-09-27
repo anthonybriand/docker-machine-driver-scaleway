@@ -1,4 +1,4 @@
-//+build current
+//+build test
 
 package scaleway
 
@@ -37,6 +37,24 @@ func TestIsScwError(t *testing.T) {
 	})
 
 	assert.NotNil(t, isScwError, "Must not return nil")
+	assert.Equal(t, true, isScwError, "Is a scaleway error")
+
+	isScwError = IsScwError(scw.ResourceNotFoundError{
+		Resource:   "wxcwxc",
+		RawBody:    nil,
+		ResourceID: "azeazeae",
+	})
+
+	assert.NotNil(t, isScwError, "Must not return nil")
+	assert.Equal(t, true, isScwError, "Is a scaleway error pointer")
+
+	isScwError = IsScwError(&scw.ResourceNotFoundError{
+		Resource:   "wxcwxc",
+		RawBody:    nil,
+		ResourceID: "azeazeae",
+	})
+
+	assert.NotNil(t, isScwError, "Must not return nil")
 	assert.Equal(t, true, isScwError, "Is a scaleway error pointer")
 }
 
@@ -65,6 +83,24 @@ func TestGetErrorStatus(t *testing.T) {
 		StatusCode: 404,
 		Status:     "qsdqsd",
 		RawBody:    nil,
+	})
+
+	assert.NotNil(t, isScwError, "Must not return nil")
+	assert.Equal(t, 404, isScwError, "Is a scaleway error pointer so status code is returned")
+
+	isScwError = GetErrorStatus(&scw.ResourceNotFoundError{
+		Resource:   "wxcwxc",
+		RawBody:    nil,
+		ResourceID: "qsdqsdqsd",
+	})
+
+	assert.NotNil(t, isScwError, "Must not return nil")
+	assert.Equal(t, 404, isScwError, "Is a scaleway error pointer so status code is returned")
+
+	isScwError = GetErrorStatus(scw.ResourceNotFoundError{
+		Resource:   "wxcwxc",
+		RawBody:    nil,
+		ResourceID: "qsdqsdqsd",
 	})
 
 	assert.NotNil(t, isScwError, "Must not return nil")
