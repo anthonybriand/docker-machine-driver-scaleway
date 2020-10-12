@@ -60,5 +60,6 @@ func (d *Driver) SetConfigFromFlags(flags drivers.DriverOptions) (err error) {
 	d.IPPersistant = flags.Bool("scaleway-ip-persistant")
 	d.StartOnCreate = flags.Bool("scaleway-start-on-create")
 	d.Tags = flags.StringSlice("scaleway-tag")
+	d.KillOnStop = flags.Bool("scaleway-kill-on-stop")
 	return
 }

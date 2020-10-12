@@ -23,6 +23,7 @@ type Driver struct {
 	VolumesID              []string
 	Tags                   []string
 	StartOnCreate          bool
+	KillOnStop             bool
 	name                   string
 	image                  string
 	bootscript             string

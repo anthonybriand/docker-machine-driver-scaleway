@@ -11,6 +11,11 @@ import (
 
 // Stop stop the server
 func (d *Driver) Stop() error {
+
+	if d.KillOnStop {
+		return d.Kill()
+	}
+
 	client, err := d.getClient()
 
 	if err != nil {

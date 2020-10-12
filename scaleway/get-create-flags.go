@@ -112,5 +112,10 @@ func (d *Driver) GetCreateFlags() []mcnflag.Flag {
 			Usage:  "Set tags on machine",
 			Value:  []string{},
 		},
+		mcnflag.BoolFlag{
+			EnvVar: "SCALEWAY_KILL_ON_STOP",
+			Name:   "scaleway-kill-on-stop",
+			Usage:  "Kill the machine instead of stop it",
+		},
 	}
 }
