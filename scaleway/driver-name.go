@@ -7,5 +7,5 @@ func (d *Driver) DriverName() string {
 	if d.RealCommercialType == "" {
 		return "scaleway"
 	}
-	return fmt.Sprintf("scaleway(%v)", d.RealCommercialType)
+	return fmt.Sprintf("scaleway(%v,%v)", d.RealCommercialType, d.ServerName)
 }
