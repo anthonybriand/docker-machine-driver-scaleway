@@ -1,7 +1,6 @@
 package scaleway
 
 import (
-	"bytes"
 	"github.com/rancher/machine/libmachine/log"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"strings"
@@ -11,12 +10,12 @@ import (
 // setAuthorizedKeys Set authorized keys env
 func (d *Driver) setAuthorizedKeys(client *instance.API, server *instance.CreateServerResponse, publicKey []byte) {
 	log.Infof("Setting Authorized keys config...")
-	err := client.SetServerUserData(&instance.SetServerUserDataRequest{
+	tags := append([]string{strings.Join([]string{"AUTHORIZED_KEY",
+		strings.Replace(string(publicKey[:len(publicKey)-1]), " ", "_", -1)}, "=")}, d.Tags...)
+	_, err := client.UpdateServer(&instance.UpdateServerRequest{
 		Zone:     server.Server.Zone,
 		ServerID: server.Server.ID,
-		Key:      "ENV",
-		Content: bytes.NewBufferString(strings.Join([]string{"AUTHORIZED_KEY",
-			strings.Replace(string(publicKey[:len(publicKey)-1]), " ", "_", -1)}, "=")),
+		Tags:     &tags,
 	})
 
 	if err != nil {
