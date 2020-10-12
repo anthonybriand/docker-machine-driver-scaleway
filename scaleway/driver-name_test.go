@@ -10,8 +10,9 @@ import (
 func TestDriver_DriverName(t *testing.T) {
 	driver := GetDriver()
 	driver.RealCommercialType = driver.CommercialType
+	driver.ServerName = "test-server"
 
 	name := driver.DriverName()
 
-	assert.Equal(t, "scaleway(DEV1-S)", name, "Invalid driver name %s", name)
+	assert.Equal(t, "scaleway(DEV1-S,test-server)", name, "Invalid driver name %s", name)
 }
