@@ -58,5 +58,6 @@ func (d *Driver) SetConfigFromFlags(flags drivers.DriverOptions) (err error) {
 	d.BaseDriver.SSHPort = flags.Int("scaleway-port")
 	d.TerminateOnStop = flags.Bool("scaleway-terminate-on-stop")
 	d.IPPersistant = flags.Bool("scaleway-ip-persistant")
+	d.StartOnCreate = flags.Bool("scaleway-start-on-create")
 	return
 }

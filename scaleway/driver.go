@@ -22,6 +22,7 @@ type Driver struct {
 	IPPersistant           bool
 	VolumesID              []string
 	Tags                   []string
+	StartOnCreate          bool
 	name                   string
 	image                  string
 	bootscript             string

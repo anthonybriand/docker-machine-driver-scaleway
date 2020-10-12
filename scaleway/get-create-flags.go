@@ -101,5 +101,10 @@ func (d *Driver) GetCreateFlags() []mcnflag.Flag {
 			Name:   "scaleway-terminate-on-stop",
 			Usage:  "Stop the server and remove it",
 		},
+		mcnflag.BoolFlag{
+			EnvVar: "SCALEWAY_START_ON_CREATE",
+			Name:   "scaleway-start-on-create",
+			Usage:  "Start the server after it was created",
+		},
 	}
 }

@@ -112,5 +112,13 @@ users:
 
 	d.created = true
 
+	if d.StartOnCreate {
+		err := d.Start()
+
+		if err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
