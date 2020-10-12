@@ -16,7 +16,7 @@ func (d *Driver) GetState() (st state.State, err error) {
 	}
 
 	if d.ServerID != "" {
-		log.Infof("Retrieving server state...")
+		log.Debugf("Retrieving server state...")
 		server, err := client.GetServer(&instance.GetServerRequest{
 			Zone:     d.Zone,
 			ServerID: d.ServerID,
