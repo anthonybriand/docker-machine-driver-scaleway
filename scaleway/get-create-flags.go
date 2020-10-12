@@ -66,7 +66,7 @@ func (d *Driver) GetCreateFlags() []mcnflag.Flag {
 		mcnflag.StringSliceFlag{
 			EnvVar: "SCALEWAY_VOLUMES",
 			Name:   "scaleway-volumes",
-			Usage:  "Attach additional volume (size in GB) (e.g., name1:50,name2:100)",
+			Usage:  "Attach additional volume (size in GB) (e.g., --scaleway-volumes=name1:50 --scaleway-volumes=name2:100)",
 			Value:  nil,
 		},
 		mcnflag.StringFlag{
@@ -105,6 +105,12 @@ func (d *Driver) GetCreateFlags() []mcnflag.Flag {
 			EnvVar: "SCALEWAY_START_ON_CREATE",
 			Name:   "scaleway-start-on-create",
 			Usage:  "Start the server after it was created",
+		},
+		mcnflag.StringSliceFlag{
+			EnvVar: "SCALEWAY_TAG",
+			Name:   "scaleway-tag",
+			Usage:  "Set tags on machine",
+			Value:  []string{},
 		},
 	}
 }

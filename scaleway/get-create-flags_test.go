@@ -17,7 +17,7 @@ func TestDriver_GetCreateFlags(t *testing.T) {
 
 	assert.IsType(t, []mcnflag.Flag{}, flags, "Invalid type of flags")
 
-	assert.Len(t, flags, 17, "Invalid flags length")
+	assert.Len(t, flags, 18, "Invalid flags length")
 
 	assert.Equal(t, flags[0].String(), "scaleway-access-key", "Invalid flag definition at 0")
 	assert.Equal(t, flags[1].String(), "scaleway-secret-key", "Invalid flag definition at 1")
@@ -36,4 +36,5 @@ func TestDriver_GetCreateFlags(t *testing.T) {
 	assert.Equal(t, flags[14].String(), "scaleway-ip-persistant", "Invalid flag definition at 14")
 	assert.Equal(t, flags[15].String(), "scaleway-terminate-on-stop", "Invalid flag definition at 15")
 	assert.Equal(t, flags[16].String(), "scaleway-start-on-create", "Invalid flag definition at 16")
+	assert.Equal(t, flags[17].String(), "scaleway-tag", "Invalid flag definition at 17")
 }
