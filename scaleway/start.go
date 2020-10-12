@@ -1,6 +1,7 @@
 package scaleway
 
 import (
+	"fmt"
 	"github.com/docker/machine/libmachine/state"
 	"github.com/rancher/machine/libmachine/log"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
@@ -57,6 +58,10 @@ func (d *Driver) Start() error {
 
 	d.IPAddress = serverResponse.Server.PublicIP.Address.String()
 	d.IPID = serverResponse.Server.PublicIP.ID
+
+	log.Infof("Waiting for SSH port...")
+	dest := fmt.Sprintf("%s:22", d.IPAddress)
+	WaitForTCPPortOpen(dest)
 
 	return nil
 }
