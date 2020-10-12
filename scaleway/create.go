@@ -100,11 +100,11 @@ users:
 	}
 
 	d.ServerID = server.Server.ID
-	d.MachineName = server.Server.Name
-
-	d.setAuthorizedKeys(client, server, publicKey)
+	d.ServerName = server.Server.Name
 
 	d.setCloudInit(client, server, cloudInitConfig)
+
+	d.setAuthorizedKeys(client, server, publicKey)
 
 	for _, volume := range server.Server.Volumes {
 		d.VolumesID = append(d.VolumesID, volume.ID)
