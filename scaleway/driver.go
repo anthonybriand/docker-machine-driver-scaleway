@@ -24,6 +24,7 @@ type Driver struct {
 	Tags                   []string
 	StartOnCreate          bool
 	KillOnStop             bool
+	ServerName             string
 	name                   string
 	image                  string
 	bootscript             string
