@@ -41,7 +41,7 @@ packages:
 # Add root to sudoers.
 users:
   - name: root
-    ssh-authorized-keys: [%s]
+    ssh_authorized_keys: [%s]
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     groups: sudo
 `, publicKey)
