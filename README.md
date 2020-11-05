@@ -1,3 +1,14 @@
+## Status
+
+![Pipelines](https://badges.acidspike.fr/badge/60/pipeline)
+![Coverage](https://badges.acidspike.fr/badge/60/coverage)
+![Quality Gate](https://badges.acidspike.fr/badge/60/alert)
+![Reliability](https://badges.acidspike.fr/badge/60/reliability)
+![Security](https://badges.acidspike.fr/badge/60/security)
+![Vulnerabilities](https://badges.acidspike.fr/badge/60/vulnerability)
+![Bugs](https://badges.acidspike.fr/badge/60/bug)
+![Code smells](https://badges.acidspike.fr/badge/60/code_smell)
+
 ## Overview
 
 A more reliable 3rd-party driver plugin for Docker machine to manage your containers on the servers of Scaleway
@@ -115,6 +126,10 @@ Feel free to contribute :smiley::beers:
 - **Scaleway sdk**: https:://github.com/scaleway/scaleway-sdk-go
 - **Docker Machine**: https://docs.docker.com/machine/
 - **Report bugs**: https://github.com/anthonybriand/docker-machine-driver-scaleway/issues
+
+## Donate
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W5FA7MHSQLH28)
 
 ## License
 
