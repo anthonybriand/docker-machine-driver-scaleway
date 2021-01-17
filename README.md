@@ -123,9 +123,10 @@ Feel free to contribute :smiley::beers:
 ## Links
 
 - **Scaleway console**: https://cloud.scaleway.com/
-- **Scaleway sdk**: https:://github.com/scaleway/scaleway-sdk-go
+- **Scaleway sdk**: https://github.com/scaleway/scaleway-sdk-go
 - **Docker Machine**: https://docs.docker.com/machine/
 - **Report bugs**: https://github.com/anthonybriand/docker-machine-driver-scaleway/issues
+- **Original Scaleway Driver**: https://github.com/scaleway/docker-machine-driver-scaleway
 
 ## Donate
 
