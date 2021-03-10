@@ -12,7 +12,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rancher/machine v0.13.0
 	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.6.0.20200923142616-ae5d7880b199
-	github.com/sirupsen/logrus v1.7.0
+	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.7.0
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a // indirect
 	gotest.tools v2.2.0+incompatible // indirect
