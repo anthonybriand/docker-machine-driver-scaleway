@@ -1,3 +1,6 @@
+# Project status
+The project is in cold state and was migrated to [GitLab](https://gitlab.com/t1214/server/docker-machine-driver-scaleway)
+
 ## Status
 
 ![Pipelines](https://badges.acidspike.fr/badge/60/pipeline)
